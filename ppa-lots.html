@@ -1,0 +1,39 @@
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Esri Vector Basemap</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  <!-- Load libraries from CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.0.0/dist/leaflet-src.js"></script>
+
+  <!-- Esri Leaflet and Esri Leaflet Vector -->
+  <script src="https://unpkg.com/esri-leaflet@2.0.3"></script>
+  <script src="https://unpkg.com/esri-leaflet-vector@1.0.3"></script>
+
+  <style>
+    body {margin:0;padding:0;}
+    #map {position: absolute;top:0;bottom:0;right:0;left:0;}
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+  var map = L.map('map').setView([39.938201, -75.151720], 16);
+  L.esri.Vector.basemap('Gray').addTo(map);
+
+  var lots = L.esri.featureLayer({
+    url: "https://services6.arcgis.com/0p6i4J6xhQas4Unf/arcgis/rest/services/ppa_lots/FeatureServer/0"
+    }).addTo(map);
+
+  lots.bindPopup(function (evt) {
+    return L.Util.template('<p>{address}</p>', evt.feature.properties);
+  });
+
+</script>
+
+</body>
+</html>
