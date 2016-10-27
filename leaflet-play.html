@@ -1,0 +1,41 @@
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>Esri Vector Basemap</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  <!-- Load libraries from CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.0.0/dist/leaflet-src.js"></script>
+
+  <!-- Esri Leaflet and Esri Leaflet Vector -->
+  <script src="https://unpkg.com/esri-leaflet@2.0.3"></script>
+  <script src="https://unpkg.com/esri-leaflet-vector@1.0.3"></script>
+
+  <style>
+    body {margin:0;padding:0;}
+    #map {position: absolute;top:0;bottom:0;right:0;left:0;}
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+  var map = L.map('map').fitBounds([
+      [39.815129, -75.285187], 
+      [40.168380, -74.946671]
+      ]);
+  L.esri.Vector.basemap('Gray').addTo(map);
+
+  var stations = L.esri.featureLayer({
+    url: "http://arcgis.dvrpc.org/arcgis/rest/services/Transportation/PassengerRailStations/FeatureServer/0"
+    });
+
+  var rail = L.esri.featureLayer({
+    url: "http://arcgis.dvrpc.org/arcgis/rest/services/Transportation/PassengerRailStations/FeatureServer/0"
+    });
+</script>
+
+</body>
+</html>
