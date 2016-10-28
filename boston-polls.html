@@ -1,7 +1,7 @@
 <html>
 <head>
   <meta charset=utf-8 />
-  <title>Esri Vector Basemap</title>
+  <title>Boston Polling Locations</title>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
   <!-- Load libraries from CDN -->
@@ -22,16 +22,17 @@
 <div id="map"></div>
 
 <script>
-  var map = L.map('map').fitBounds([
-      	[42.271212, -71.201706], 
-      	[42.449555, -70.918465]
-      ]);
+  var map = L.map('map').setView([42.358607, -71.059570], 13);
   L.esri.Vector.basemap('Gray').addTo(map);
 
-  L.esri.featureLayer({
-    url: "http://maps.cityofboston.gov/ArcGIS/rest/services/CityServices/OPEN_DATA/MapServer/9",
+  var polls = L.esri.featureLayer({
+    url: "https://maps.cityofboston.gov/ArcGIS/rest/services/CityServices/OPEN_DATA/MapServer/9",
     useCors: false
     }).addTo(map);
+
+    polls.bindPopup(function (evt) {
+    return L.Util.template('<p>{Location}<br>{Address}<br><br>{VoterEntra}', evt.feature.properties);
+  });
 
 </script>
 
